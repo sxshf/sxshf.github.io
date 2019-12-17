@@ -1,15 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>hello</title>
-    <url>/2019/12/10/hello/</url>
-    <content><![CDATA[<h1 id="孙小圣会飞"><a href="#孙小圣会飞" class="headerlink" title="孙小圣会飞"></a>孙小圣会飞</h1>]]></content>
+    <title>SpringBoot配置文件</title>
+    <url>/2019/12/11/SpringBoot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="SpringBoot配置文件"><a href="#SpringBoot配置文件" class="headerlink" title="SpringBoot配置文件"></a>SpringBoot配置文件</h1><h2 id="1、配置文件"><a href="#1、配置文件" class="headerlink" title="1、配置文件"></a>1、配置文件</h2><p>SpringBoot使用一个全局的配置文件，配置文件名是固定的。</p>
+<ul>
+<li>application.properties</li>
+<li><strong>application.yml</strong></li>
+</ul>
+<p>配置文件的作用：修改SpringBoot的自动配置的默认值；SpringBoot在底层都给我们自动配置好</p>
+<p>YAML(YAML Ain’t Markup Language)</p>
+<ul>
+<li><p>YAML A Markup Language：是一个标记语言</p>
+</li>
+<li><p>YAML isn‘t Markup Language：不是一个标记语言</p>
+</li>
+</ul>
+<p>标记语言：</p>
+<ul>
+<li><p>以前的配置文件大多是xml文件</p>
+</li>
+<li><p>YAML：<strong>以数据为中心</strong>，比json、xml等更适合做配置文件</p>
+<p>YAML配置例子</p>
+</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span></pre></td></tr></table></figure>
+
+<p>​        XML：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="tag">&lt;<span class="name">port</span>&gt;</span>8081<span class="tag">&lt;/<span class="name">port</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h2 id="2、YAML语法"><a href="#2、YAML语法" class="headerlink" title="2、YAML语法"></a>2、YAML语法</h2><h3 id="1、基本语法"><a href="#1、基本语法" class="headerlink" title="1、基本语法"></a>1、基本语法</h3><p>k:(<strong>空格</strong>)v：表示一对键值对（空格必须有）；</p>
+<p>以空格的缩进控制层级关系；只要是左对齐的一列数据，都是同一个层级的</p>
+<h3 id="2、值的写法"><a href="#2、值的写法" class="headerlink" title="2、值的写法"></a>2、值的写法</h3><p><strong>字面量：普通的值（数字、字符串、布尔）</strong></p>
+<p>​    k:v ：字面直接来写</p>
+<p>​              字符串默认不用加上单引号或者双引号</p>
+<p>​                “”：双引号；不会转义字符串里面的特殊字符；特殊字符会作为本身想表示的意思</p>
+<p>​                            name：”zhangsan \n lisi”： 输出，zhangsan 换行 lisi</p>
+<p>​                ‘’：单引号；会转义特殊字符，特殊字符最终只是个普通的字符串数据</p>
+<p>​                            name：’zhangsan \n lisi‘：输出，zhangsan \n lisi</p>
+<p><strong>对象、Map</strong></p>
+<p>​    k:v：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">friends:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="attr">lastName:</span> <span class="string">zhangsan</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="attr">age:</span> <span class="number">18</span></span></pre></td></tr></table></figure>
+
+<p>行内写法</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">friends:</span> <span class="string">&#123;lastName:</span> <span class="string">zhangsan,age:</span> <span class="number">18</span><span class="string">&#125;</span></span></pre></td></tr></table></figure>
+
+<p><strong>数组</strong></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">pets</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="bullet">-</span> <span class="string">cat</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="bullet">-</span> <span class="string">dog</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"> <span class="bullet">-</span> <span class="string">pig</span></span></pre></td></tr></table></figure>
+
+<p>行内写法</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">pets:</span> <span class="string">[cat,dog,pig]</span></span></pre></td></tr></table></figure>
+
+<h2 id="3、配置文件值注入"><a href="#3、配置文件值注入" class="headerlink" title="3、配置文件值注入"></a>3、配置文件值注入</h2><h3 id="1、yaml配置文件"><a href="#1、yaml配置文件" class="headerlink" title="1、yaml配置文件"></a><strong>1、yaml配置文件</strong></h3><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">person:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">lastName:</span> <span class="string">hello</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">age:</span> <span class="number">18</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">boss:</span> <span class="literal">false</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">birth:</span> <span class="number">2019</span><span class="string">/11/11</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">maps:</span> <span class="string">&#123;k1:</span> <span class="string">v1,k2:</span> <span class="number">12</span><span class="string">&#125;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">lists:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="bullet">-</span> <span class="string">lisi</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="bullet">-</span> <span class="string">zhaoliu</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">dog:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="attr">name:</span> <span class="string">小狗</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">      <span class="attr">age:</span> <span class="number">12</span></span></pre></td></tr></table></figure>
+
+<p><strong>JavaBean</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> * 将配置文件中配置的每一个属性的值，映射到这个组件中（默认从全局配置文件中获取值）</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> * <span class="doctag">@ConfigurationProperties</span>: 告诉springboot将本类中的所有属性和配置文件中的相关的配置进行绑定</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *      prefix = "person"：配置文件中在哪个下面的属性进行一一映射</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *只有这个组件是容器中的组件，才能使用容器提供的<span class="doctag">@ConfigurationProperties</span>的功能</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> */</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"person"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> String lastName;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Integer age;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span>  Boolean boss;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Date birth;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Map&lt;String,Object&gt; maps;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; lists;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Dog dog;</span></pre></td></tr></table></figure>
+
+<p>导入配置文件处理器，以后编写配置就有提示了</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--导入配置文件处理器，配置文件进行绑定就会有提示--&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">			<span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<h3 id="2、properties配置文件"><a href="#2、properties配置文件" class="headerlink" title="2、properties配置文件"></a><strong>2、properties配置文件</strong></h3><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="comment">#idea使用的是utf-8</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">#file-encoding</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.last-name</span>=<span class="string">张三</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.age</span>=<span class="string">18</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.maps.k1</span>=<span class="string">v1</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.maps.k2</span>=<span class="string">14</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.lists</span>=<span class="string">a,b,c</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.dog.name</span>=<span class="string">dog</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">person.dog.age</span>=<span class="string">15</span></span></pre></td></tr></table></figure>
+
+<p>会有乱码问题，ctrl + alt + s 快捷键去setting界面 输入 file-encoding</p>
+<p><img src="..%5Cimg%5Cimage-20191217182412029.png" alt="image-20191217182412029"></p>
+<h3 id="3、-Value获取值和-ConfigurationProperties获取值比较"><a href="#3、-Value获取值和-ConfigurationProperties获取值比较" class="headerlink" title="3、@Value获取值和@ConfigurationProperties获取值比较"></a>3、@Value获取值和@ConfigurationProperties获取值比较</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>@ConfigurationProperties</th>
+<th>@Value</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>功能</td>
+<td>批量注入配置文件中的属性</td>
+<td>一个个指定</td>
+</tr>
+<tr>
+<td>松散绑定（松散语法）</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>SpEL</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>JSR303数据校验</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>复杂类型封装</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<p>如果说，我们只是在某个业务逻辑中需要获取一下配置文件中的某项值，使用@Value。</p>
+<p>如果说，我们专门编写了一个JavaBean来和配置文件进行映射，我们就直接使用@ConfigurationProperties</p>
+<h3 id="4、配置文件注入值数据校验"><a href="#4、配置文件注入值数据校验" class="headerlink" title="4、配置文件注入值数据校验"></a>4、配置文件注入值数据校验</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"person"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@Validated</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">/**</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     * &lt;bean class="Person"&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     *      &lt;property name="lastName" value="字面量/$&#123;key&#125;从环境变量、配置文件中获取值"/#						&#123;SpEL&#125;&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     &lt;/property&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     * &lt;/bean&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     */</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="meta">@Email</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">//@Value("$&#123;person.last-name&#125;")</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> String lastName;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="meta">@Value</span>(<span class="string">"#&#123;11*2&#125;"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Integer age;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="meta">@Value</span>(<span class="string">"true"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span>  Boolean boss;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Date birth;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Map&lt;String,Object&gt; maps;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; lists;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Dog dog;</span></pre></td></tr></table></figure>
+
+<h3 id="5、-PropertySource-amp-ImportResource"><a href="#5、-PropertySource-amp-ImportResource" class="headerlink" title="5、@PropertySource&amp;@ImportResource"></a>5、@PropertySource&amp;@ImportResource</h3><p>@PropertySource：加载指定的配置文件；</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> * 将配置文件中配置的每一个属性的值，映射到这个组件中</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> * <span class="doctag">@ConfigurationProperties</span>: 告诉springboot将本类中的所有属性和配置文件中的相关的配置进行绑定</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *      prefix = "person"：配置文件中在哪个下面的属性进行一一映射</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *只有这个组件是容器中的组件，才能使用容器提供的<span class="doctag">@ConfigurationProperties</span>的功能</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> */</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@PropertySource</span>(value = &#123;<span class="string">"classpath:person.properties"</span>&#125;)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"person"</span>)</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//@Validated</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">/**</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     * &lt;bean class="Person"&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     *      &lt;property name="lastName" value="字面量/$&#123;key&#125;从环境变量、配置文件中获取值"/#&#123;SpEL&#125;&gt;&lt;/property&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     * &lt;/bean&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">     */</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    @Email</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="comment">//@Value("$&#123;person.last-name&#125;")</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> String lastName;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    @Value("#&#123;11*2&#125;")</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Integer age;</span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment">//    @Value("true")</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span>  Boolean boss;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Date birth;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Map&lt;String,Object&gt; maps;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> List&lt;Object&gt; lists;</span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="keyword">private</span> Dog dog;</span></pre></td></tr></table></figure>
+
+<p>@ImportResource：导入spring的配置文件，让配置文件里面的内容生效；</p>
+<p>SpringBoot里面没有Spring的配置文件，我们自己编写的配置文件，也不能自动识别；</p>
+<p>想让Spring的配置文件生效，加载进来；@ImportResource标注在一个配置类上</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@ImportResource</span>(locations = &#123;<span class="string">"classpath:beans.xml"</span>&#125;)<span class="comment">//导入Spring的配置文件让其生效</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">		SpringApplication.run(DemoApplication<span class="class">.<span class="keyword">class</span>, <span class="title">args</span>)</span>;</span></pre></td></tr><tr><td class="code"><pre><span class="line">	&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>不来编写Spring的配置文件</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"helloService"</span> <span class="attr">class</span>=<span class="string">"com.syj.service.HelloService"</span>&gt;</span><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span></pre></td></tr></table></figure>
+
+<p>SpringBoot推荐给容器中添加组件的方式：使用全注解方式</p>
+<p>1、配置类======Spring配置文件</p>
+<p>2、使用@Bean给容器中添加组件</p>
+<p>​     <strong>TestApplication.class必须和@Configuration注解的配置类在同一包中，不然就加载不了这个配置类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> * <span class="doctag">@Configuration</span> 指明当前类就是个配置类；就是来替代之前的Spring配置文件</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> *</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> * 在配置文件中用&lt;bean&gt;&lt;/bean&gt;标签添加组件</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="comment"> */</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAppConfig</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="comment">//将方法的返回值添加到容器中；容器中默认的id就是方法名</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="meta">@Bean</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> HelloService <span class="title">helloService</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="code"><pre><span class="line">        System.out.println(<span class="string">"配置类给容器中添加组件了"</span>);</span></pre></td></tr><tr><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HelloService();</span></pre></td></tr><tr><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h2 id="4、配置文件占位符"><a href="#4、配置文件占位符" class="headerlink" title="4、配置文件占位符"></a>4、配置文件占位符</h2><h3 id="1、随机数"><a href="#1、随机数" class="headerlink" title="1、随机数"></a>1、随机数</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">$&#123;random.value&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="2、占位符获取之前配置的值，如果没有可以用-指定默认值"><a href="#2、占位符获取之前配置的值，如果没有可以用-指定默认值" class="headerlink" title="2、占位符获取之前配置的值，如果没有可以用:指定默认值"></a>2、占位符获取之前配置的值，如果没有可以用:指定默认值</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#idea使用的是utf-8</span></pre></td></tr><tr><td class="code"><pre><span class="line">#file-encoding</span></pre></td></tr><tr><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="code"><pre><span class="line">person.last-name&#x3D;张三$&#123;random.uuid&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.age&#x3D;$&#123;random.int&#125;</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.maps.k1&#x3D;v1</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.maps.k2&#x3D;14</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.lists&#x3D;a,b,c</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.dog.name&#x3D;$&#123;person.hello:hello&#125;_dog</span></pre></td></tr><tr><td class="code"><pre><span class="line">person.dog.age&#x3D;15</span></pre></td></tr></table></figure>
+
+<h2 id="5、Profile"><a href="#5、Profile" class="headerlink" title="5、Profile"></a>5、Profile</h2><h3 id="1、多Profile文件"><a href="#1、多Profile文件" class="headerlink" title="1、多Profile文件"></a>1、多Profile文件</h3><p>我们在主配置文件编写的时候，文件名可以是 application-{profile}.properties.yml</p>
+<p>默认使用application.properties的配置；</p>
+<h3 id="2、yml支持多文档块方式"><a href="#2、yml支持多文档块方式" class="headerlink" title="2、yml支持多文档块方式"></a>2、yml支持多文档块方式</h3><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">port:</span> <span class="number">8081</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">profiles:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">    <span class="attr">active:</span> <span class="string">dev</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">port:</span> <span class="number">8083</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">profiles:</span> <span class="string">dev</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">port:</span> <span class="number">8084</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="attr">spring:</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">  <span class="attr">profiles:</span> <span class="string">prod</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、激活指定profile"><a href="#3、激活指定profile" class="headerlink" title="3、激活指定profile"></a>3、激活指定profile</h3><p>​    1、在配置文件中指定 spring.profiles.active=dev</p>
+<p>​    2、命令行</p>
+<p>​            –spring.profiles.active=dev</p>
+<p>​    3、虚拟机参数</p>
+<p>​            -Dspring.profiles.active=dev</p>
+]]></content>
       <categories>
-        <category>前端</category>
+        <category>专业知识</category>
       </categories>
       <tags>
-        <tag>导航</tag>
-        <tag>分享</tag>
+        <tag>Java</tag>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
 </search>
