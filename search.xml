@@ -11,10 +11,8 @@
 <p>配置文件的作用：修改SpringBoot的自动配置的默认值；SpringBoot在底层都给我们自动配置好</p>
 <p>YAML(YAML Ain’t Markup Language)</p>
 <ul>
-<li><p>YAML A Markup Language：是一个标记语言</p>
-</li>
-<li><p>YAML isn‘t Markup Language：不是一个标记语言</p>
-</li>
+<li>YAML A Markup Language：是一个标记语言</li>
+<li>YAML isn‘t Markup Language：不是一个标记语言</li>
 </ul>
 <p>标记语言：</p>
 <ul>
