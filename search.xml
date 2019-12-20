@@ -10,13 +10,14 @@
 <li>YAML A Markup Language：是一个标记语言</li>
 <li>YAML isn‘t Markup Language：不是一个标记语言<br>标记语言：</li>
 <li>以前的配置文件大多是xml文件</li>
-<li>YAML：<strong>以数据为中心</strong>，比json、xml等更适合做配置文件<br>YAML配置例子<pre><code class="yaml">server:
-port: 8081</code></pre>
-​        XML：<pre><code class="xml">&lt;server&gt;
-  &lt;port&gt;8081&lt;/port&gt;
-&lt;/server&gt;</code></pre>
-</li>
+<li>YAML：<strong>以数据为中心</strong>，比json、xml等更适合做配置文件<br>YAML配置例子</li>
 </ul>
+<pre><code class="yaml">server:
+  port: 8081</code></pre>
+<p>​        XML：</p>
+<pre><code class="xml">&lt;server&gt;
+    &lt;port&gt;8081&lt;/port&gt;
+&lt;/server&gt;</code></pre>
 <h2 id="2、YAML语法"><a href="#2、YAML语法" class="headerlink" title="2、YAML语法"></a>2、YAML语法</h2><h3 id="1、基本语法"><a href="#1、基本语法" class="headerlink" title="1、基本语法"></a>1、基本语法</h3><p>k:(<strong>空格</strong>)v：表示一对键值对（空格必须有）；<br>以空格的缩进控制层级关系；只要是左对齐的一列数据，都是同一个层级的</p>
 <h3 id="2、值的写法"><a href="#2、值的写法" class="headerlink" title="2、值的写法"></a>2、值的写法</h3><p><strong>字面量：普通的值（数字、字符串、布尔）</strong><br>​    k:v ：字面直接来写<br>​              字符串默认不用加上单引号或者双引号<br>​                “”：双引号；不会转义字符串里面的特殊字符；特殊字符会作为本身想表示的意思<br>​                            name：”zhangsan \n lisi”： 输出，zhangsan 换行 lisi<br>​                ‘’：单引号；会转义特殊字符，特殊字符最终只是个普通的字符串数据<br>​                            name：’zhangsan \n lisi‘：输出，zhangsan \n lisi<br><strong>对象、Map</strong><br>​    k:v：</p>
 <pre><code class="yaml">friends:
